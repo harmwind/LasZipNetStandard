@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
 	<PackageId>LasZipNetStandard</PackageId>
-	<Version>1.0.3.1</Version>
+	<Version>1.0.3.2</Version>
 	<Authors>Kuoste</Authors>
 	<Company>Kuoste</Company>
 	<PackageDescription>.NET wrapper for the laszip package</PackageDescription>

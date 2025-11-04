@@ -128,6 +128,9 @@ namespace Kuoste.LasZipNetStandard
       Marshal.StructureToPtr(header, _pHeaderWriter, false);
 
       _headerWriter = header;
+
+      if (laszip_set_header(_pLasZipWriter, _pHeaderWriter) != 0)
+        throw new Exception("Failed to write LasZip header");
     }
 
     /// <summary>
