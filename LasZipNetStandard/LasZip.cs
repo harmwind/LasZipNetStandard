@@ -47,6 +47,9 @@ namespace Kuoste.LasZipNetStandard
     public static extern int laszip_write_point(IntPtr pointer);
 
     [DllImport(_lasZipDll, CallingConvention = CallingConvention.Cdecl)]
+    public static extern int laszip_update_inventory(IntPtr pointer);
+
+    [DllImport(_lasZipDll, CallingConvention = CallingConvention.Cdecl)]
     public static extern int laszip_get_point_pointer(IntPtr pointer, ref IntPtr pointPointer);
 
     [DllImport(_lasZipDll, CallingConvention = CallingConvention.Cdecl)]
@@ -167,7 +170,7 @@ namespace Kuoste.LasZipNetStandard
     /// <param name="point"> LasPoint to write. Note that the method changes the coordinates
     /// of the point by applying the Offsets and ScaleFactors. </param>
     /// <exception cref="Exception"> Writing failed. </exception>
-    public void WritePoint(ref LasPoint point)
+    public void WritePoint(ref LasPoint point, bool updateInventory = false)
     {
       // Get the memory location for the point in LasZip library
       if (_pPointWriter == IntPtr.Zero)
@@ -189,6 +192,11 @@ namespace Kuoste.LasZipNetStandard
       if (laszip_write_point(_pLasZipWriter) != 0)
       {
         throw new Exception("Failed to write LasZip point");
+      }
+
+      if (updateInventory && laszip_update_inventory(_pLasZipWriter) != 0)
+      {
+        throw new Exception("Failed to update LasZip inventory");
       }
     }
 
